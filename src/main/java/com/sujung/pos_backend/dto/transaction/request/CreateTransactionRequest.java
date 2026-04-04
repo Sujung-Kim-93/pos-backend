@@ -85,18 +85,15 @@ public class CreateTransactionRequest {
 
     @Size(max = 500)
     private String notes;
-    /*
-     * @NotEmpty
-     * 
-     * @Valid
-     * private List<CreateTransactionItemRequest> items;
-     * 
-     * @Valid
-     * private List<CreateTransactionTaxRequest> taxes;
-     * 
-     * @NotEmpty
-     * 
-     * @Valid
-     * private List<CreateTransactionPaymentRequest> payments;
-     */
+
+    @NotEmpty
+    @Valid
+    private List<CreateTransactionItemRequest> items;
+
+    @Valid
+    private List<CreateTransactionTaxRequest> taxes;
+
+    @NotEmpty
+    @Valid
+    private List<CreateTransactionPaymentRequest> payments;
 }
