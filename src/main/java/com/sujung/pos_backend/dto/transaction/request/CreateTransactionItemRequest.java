@@ -50,7 +50,7 @@ public class CreateTransactionItemRequest {
 
     @NotNull
     @DecimalMin("0.00")
-    private BigDecimal eventDiscountAmount;
+    private BigDecimal discountAmount;
 
     @NotNull
     @DecimalMin("0.00")
