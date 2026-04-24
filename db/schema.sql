@@ -82,3 +82,49 @@ CREATE TABLE transactions (
     FOREIGN KEY (original_transaction_id)
         REFERENCES transactions(id)
 );
+
+-- 6. transaction_items
+CREATE TABLE transaction_items (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+    transaction_id BIGINT NOT NULL,
+    line_number INT NOT NULL,
+
+    sku VARCHAR(30) NOT NULL,
+    item_description VARCHAR(100) NOT NULL,
+
+    quantity INT NOT NULL,
+    unit_price DECIMAL(15,2) NOT NULL,
+    original_sales_amount DECIMAL(15,2) NOT NULL,
+    discount_amount DECIMAL(15,2) NOT NULL,
+    total_sales_amount DECIMAL(15,2) NOT NULL,
+
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    UNIQUE (transaction_id, line_number),
+
+    FOREIGN KEY (transaction_id)
+        REFERENCES transactions(id)
+);
+
+-- 7. transaction_item_adjustments
+CREATE TABLE transaction_item_adjustments (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+    transaction_item_id BIGINT NOT NULL,
+    adjustment_sequence INT NOT NULL,
+
+    adjustment_type_code VARCHAR(30) NOT NULL,
+    adjustment_event_code VARCHAR(30),
+    adjustment_reason_code VARCHAR(30) NOT NULL,
+    adjustment_description VARCHAR(100),
+
+    adjustment_amount DECIMAL(15,2) NOT NULL,
+
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    UNIQUE (transaction_item_id, adjustment_sequence),
+
+    FOREIGN KEY (transaction_item_id)
+        REFERENCES transaction_items(id)
+);
